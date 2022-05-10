@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="./favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <meta name="title" content="Svelte/Typescript/Tailwind/Vite">
-    <meta name="description" content="Svelte/Typescript/Tailwind/Vite template">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/mathtype/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MathType</title>
+    <!-- JQuery is necessary for mathquill -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<meta http-equiv="content-security-policy" content="">
+	<link rel="stylesheet" href="/mathtype/_app/assets/pages/__layout.svelte-4cf5efcc.css">
+	<link rel="stylesheet" href="/mathtype/_app/assets/pages/index.svelte-eac55aa2.css">
+	<link rel="modulepreload" href="/mathtype/_app/start-ca3c18d7.js">
+	<link rel="modulepreload" href="/mathtype/_app/chunks/index-d0df52ac.js">
+	<link rel="modulepreload" href="/mathtype/_app/pages/__layout.svelte-065711e5.js">
+	<link rel="modulepreload" href="/mathtype/_app/pages/index.svelte-2f3b7d92.js">
+	</head>
+	<body>
+		<div>
 
-    <title>Svelte + TS + Tailwind + Vite App</title>
-    <script type="module" crossorigin src="./assets/index.3c848253.js"></script>
-    <link rel="modulepreload" href="./assets/vendor.7dabaeff.js">
-    <link rel="stylesheet" href="./assets/index.2d5096bb.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    
-  </body>
+
+<div class="m-8">
+
+  <button class="print:hidden mt-4 px-4 py-2 rounded-lg bg-blue-300 ring active:ring-blue-200">Add Section</button></div>
+
+
+		<script type="module" data-hydrate="15x5z72">
+		import { start } from "/mathtype/_app/start-ca3c18d7.js";
+		start({
+			target: document.querySelector('[data-hydrate="15x5z72"]').parentNode,
+			paths: {"base":"/mathtype","assets":"/mathtype"},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/mathtype/_app/pages/__layout.svelte-065711e5.js"),
+						import("/mathtype/_app/pages/index.svelte-2f3b7d92.js")
+				],
+				params: {},
+				routeId: ""
+			}
+		});
+	</script></div>
+	</body>
 </html>
