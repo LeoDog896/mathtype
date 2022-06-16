@@ -33,6 +33,11 @@
           {:else if piece.type == "math"}
             <div class="mb-4">
               <MathQuill bind:this={piece.element} bind:latex={piece.content}
+
+              config={({
+                autoCommands: "theta sqrt sum pi prod",
+                autoOperatorNames: "sin cos tan arcsin arccos arctan"
+              })}
               
               on:enter={async () => {
                 section.pieces = [...section.pieces, { type: "math", content: "" }]
