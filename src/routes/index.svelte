@@ -2,14 +2,17 @@
   import { MathQuill } from "svelte-mathquill";
   import { autofocus } from "$lib/autofocus";
   import { tick } from "svelte"
+  import { ComputeEngine } from "@cortex-js/compute-engine"
+  const ce = new ComputeEngine();
 
   type Piece = {
     content: string;
-  } & ({ type: "text" } | { type: "math", element?: MathQuill })
+  } & ({ type: "text", element?: HTMLParagraphElement } | { type: "math", element?: MathQuill })
 
   interface Section {
     name: string;
     pieces: Piece[];
+    title?: HTMLInputElement;
   }
 
   let sections: Section[] = []
@@ -23,9 +26,23 @@
 </script>
 
 <div class="m-8">
-  {#each sections as section}
+  {#each sections as section, sectionIndex}
     <div class="block">
-      <input use:autofocus bind:value={section.name} use:autofocus placeholder="Section Name" class="text-bold text-lg">
+      <input
+        bind:this={section.title}
+        use:autofocus bind:value={section.name}
+        placeholder="Section Name" class="text-bold text-lg"
+        on:keydown={e => {
+          if (e.key == "Enter" || e.key == "ArrowDown") {
+            const firstPiece = section.pieces[0];
+            firstPiece.element?.focus()
+          } else if (e.key == "ArrowUp" && sectionIndex !== 0) {
+            const selectedSection = sections[sectionIndex - 1];
+            selectedSection.pieces[selectedSection.pieces.length - 1].element?.focus()
+          }
+
+        }}
+      >
       <div class="border-l border-gray-300 p-4">
         {#each section.pieces as piece, i}
           {#if piece.type == "text"}
@@ -47,7 +64,21 @@
                   nextPiece.element?.focus()
               }}
 
-              on:delete={async () => {
+              on:outOfOnly={async event => {
+                if (event.detail == "U" || event.detail == "L") {
+                  if (i === 0) {
+                    section.title?.focus()
+                  } else {
+                    section.pieces[i - 1].element?.focus()
+                  }
+                } else if (i + 1 !== section.pieces.length) {
+                  section.pieces[i + 1].element?.focus()
+                } else {
+                  sections[sectionIndex + 1].title?.focus()
+                }
+              }}
+
+              on:deleteOutOf={async () => {
                 if (section.pieces.length === 1) return
                 section.pieces = section.pieces.filter((_, index) => index !== i)
                 await tick()
