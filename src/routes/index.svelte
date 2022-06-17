@@ -2,7 +2,7 @@
   import { MathQuill } from "svelte-mathquill";
   import { autofocus } from "$lib/autofocus";
   import { tick } from "svelte"
-  import engine from "@cortex-js/compute-engine"
+  import * as engine from "@cortex-js/compute-engine"
   const { ComputeEngine } = engine
   const ce = new ComputeEngine();
 
