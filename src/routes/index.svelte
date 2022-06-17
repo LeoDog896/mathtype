@@ -8,7 +8,15 @@
 
   type Piece = {
     content: string;
-  } & ({ type: "text", element?: HTMLParagraphElement } | { type: "math", element?: MathQuill })
+    focused?: boolean;
+  } & ({
+    type: "text",
+    element?: HTMLParagraphElement
+  } | {
+    type: "math",
+    element?: MathQuill,
+    result?: string
+  })
 
   interface Section {
     name: string;
@@ -49,9 +57,9 @@
           {#if piece.type == "text"}
             <input bind:value={piece.content} placeholder="Enter text..."/>
           {:else if piece.type == "math"}
-            <div class="mb-4">
-              <MathQuill bind:this={piece.element} bind:latex={piece.content}
-
+            <div class="mb-4 p-2 border border-black ring-blue-700 rounded-md {piece.focused ? "ring" : ""}">
+              <MathQuill bind:focused={piece.focused} noBorderOutline={true} bind:this={piece.element} bind:latex={piece.content}
+              
               config={({
                 autoCommands: "theta sqrt sum pi prod",
                 autoOperatorNames: "sin cos tan arcsin arccos arctan"
@@ -88,6 +96,9 @@
                   nextPiece.element?.focus()
               }}
               /><br/>
+              {#if piece.result}
+                <p>{piece.result}</p>
+              {/if}
             </div>
           {/if}
         {/each}
