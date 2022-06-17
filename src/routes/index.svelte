@@ -31,7 +31,7 @@
       >
       <div class="border-l border-gray-300 p-4 hover:cursor-text">
         {#each section.pieces as piece, pieceIndex}
-          <Piece bind:section={section} bind:piece={piece} bind:pieces={section.pieces} {pieceIndex}/>
+          <Piece bind:section={section} {sectionIndex} bind:piece={piece} bind:pieces={section.pieces} {pieceIndex}/>
         {/each}
       </div>
     </div>

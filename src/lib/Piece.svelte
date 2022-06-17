@@ -7,6 +7,7 @@
 
   import { tick } from "svelte"
   export let section: Section
+  export let sectionIndex: number;
   export let piece: Piece;
   export let pieces: Piece[]
   export let pieceIndex: number;
@@ -45,14 +46,14 @@
     on:outOfOnly={async event => {
       if (event.detail == "U" || event.detail == "L") {
         if (pieceIndex === 0) {
-          // TODO move to title
+          section.title?.focus()
         } else {
           pieces[pieceIndex - 1].element?.focus()
         }
       } else if (pieceIndex + 1 !== pieces.length) {
         pieces[pieceIndex + 1].element?.focus()
       } else {
-        // TODO move to next title
+        $sections[sectionIndex + 1].title?.focus()
       }
     }}
     on:enter={async () => {
